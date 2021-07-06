@@ -19,7 +19,7 @@ from modules.optimization import BertAdam
 from modules.beam import Beam
 from torch.utils.data import DataLoader
 from dataloaders.dataloader_youcook_caption import Youcook_Caption_DataLoader
-from dataloaders.dataloader_msrvtt_caption import MSRVTT_Caption_DataLoader
+from dataloaders.dataloader_mydata_caption import MyData_Caption_DataLoader
 from util import get_logger
 torch.distributed.init_process_group(backend="nccl")
 
@@ -274,7 +274,7 @@ def dataloader_msrvtt_train(args, tokenizer):
     return dataloader, len(msrvtt_dataset), train_sampler
 
 def dataloader_msrvtt_test(args, tokenizer, split_type="test",):
-    msrvtt_testset = MSRVTT_Caption_DataLoader(
+    mydata_testset = MyData_Caption_DataLoader(
         csv_path=args.val_csv,
         json_path=args.data_path,
         features_path=args.features_path,
@@ -285,16 +285,16 @@ def dataloader_msrvtt_test(args, tokenizer, split_type="test",):
         split_type=split_type,
     )
 
-    test_sampler = SequentialSampler(msrvtt_testset)
+    test_sampler = SequentialSampler(mydata_testset)
     dataloader_msrvtt = DataLoader(
-        msrvtt_testset,
+        mydata_testset,
         sampler=test_sampler,
         batch_size=args.batch_size_val,
         num_workers=args.num_thread_reader,
         pin_memory=False,
         drop_last=False,
     )
-    return dataloader_msrvtt, len(msrvtt_testset)
+    return dataloader_msrvtt, len(mydata_testset)
 
 def convert_state_dict_type(state_dict, ttype=torch.FloatTensor):
     if isinstance(state_dict, dict):

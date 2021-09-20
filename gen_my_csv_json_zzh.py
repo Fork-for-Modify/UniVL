@@ -4,7 +4,7 @@ import json
 ## params
 orig_names = ['bus', 'car', 'football',
               'run', 'tennis']
-suffixs = ['',  '_sci20']
+suffixs = ['', '_sci10', '_sci20']
 save_csv_path = './data/pipeline_test/pipeline_test.csv'
 save_json_path = './data/pipeline_test/pipeline_test.json'
 
@@ -23,7 +23,7 @@ sentence = key # doesn't matter
 
 data = {'key':key,'vid_key':vid_key,'video_id':video_id,'sentence':sentence}
 df = pd.DataFrame(data)
-print(df)
+print('---- CSV file ---- \n', df, '\n')
 df.to_csv(save_csv_path,index=False)
 
 
@@ -36,6 +36,6 @@ for k, video_id_k in enumerate(video_id):
     sent_list.append(item_dict)
 
 json_info = {"sentences": sent_list}
-print(json_info)
+print('---- JSON file ---- \n', json_info, '\n')
 with open(save_json_path,'w') as file_obj:
     json.dump(json_info,file_obj)

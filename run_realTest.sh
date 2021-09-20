@@ -9,9 +9,9 @@ INIT_MODEL="ckpts/ckpt_msrvtt_caption@server-westlakeT0528/pytorch_model.bin.4"
 # OUTPUT_ROOT="results/ckpt_msrvtt_caption-city_traffic"
 
 # city_traffic
-VAL_CSV="data/sci_city_traffic/sci_city_traffic_JSFUSION_test.csv"
-DATA_PATH="data/sci_city_traffic/sci_city_traffic_data.json"
-FEATURES_PATH="data/sci_city_traffic/sci_city_traffic.pickle"
+VAL_CSV="data/sci_city_traffic/pipeline_test.csv"
+DATA_PATH="data/sci_city_traffic/pipeline_test.json"
+FEATURES_PATH="data/sci_city_traffic/pipeline_test.pickle"
 OUTPUT_ROOT="results/ckpt_msrvtt_caption-sci_city_traffic"
 
 # # hcasci_data
@@ -21,7 +21,7 @@ OUTPUT_ROOT="results/ckpt_msrvtt_caption-sci_city_traffic"
 # OUTPUT_ROOT="results/ckpt_msrvtt_caption-hcasci_data"
 
 #? nproc_per_node should set to 1, to avoid NCCL error
-eval
+# eval
 CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --nproc_per_node=1 \
 main_mytask_caption.py \
 --do_eval --num_thread_reader=4 \
